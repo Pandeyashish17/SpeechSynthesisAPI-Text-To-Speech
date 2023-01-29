@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Cards Effect</title>
+  </head>
+  <!-- Link Swiper's CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+  />
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      background: #fff;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .swiper {
+      width: 240px;
+      height: 320px;
+    }
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #fff;
+      background-size: cover;
+    }
+  </style>
+  <body>
+    <!-- Swiper -->
+
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.pixabay.com/photo/2023/01/04/01/37/nft-7695648_960_720.jpg);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.pixabay.com/photo/2022/10/11/06/35/alien-7513483__340.jpg);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/A%20photo%20of%20a%20white%20fur%20monster%20standing%20in%20a%20purple%20room.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/An%20expressive%20oil%20painting%20of%20a%20basketball%20player%20dunking,%20depicted%20as%20an%20explosion%20of%20a%20nebula.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/3D%20render%20of%20a%20cute%20tropical%20fish%20in%20an%20aquarium%20on%20a%20dark%20blue%20background,%20digital%20art.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/A%203D%20render%20of%20an%20astronaut%20walking%20in%20a%20green%20desert.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/A%20cyberpunk%20monster%20in%20a%20control%20room.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/A%20photo%20of%20a%20teddy%20bear%20on%20a%20skateboard%20in%20Times%20Square.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/A%20Shiba%20Inu%20dog%20wearing%20a%20beret%20and%20black%20turtleneck.webp?v=1);
+          "
+        ></div>
+        <div
+          class="swiper-slide"
+          style="
+            background-image: url(https://cdn.openai.com/labs/images/A%20centered%20explosion%20of%20colorful%20powder%20on%20a%20black%20background.webp?v=1);
+          "
+        ></div>
+      </div>
+    </div>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        effect: "cards",
+        grabCursor: true,
+      });
+    </script>
+  </body>
+</html>
