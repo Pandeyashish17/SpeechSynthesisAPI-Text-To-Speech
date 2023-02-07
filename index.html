@@ -1,111 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Cube</title>
-    <!-- Link Swiper's CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
-    />
-    <style>
-        html,
-      body {
-        position: relative;
-        height: 100%;
-      }
-      body {
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color: #000;
-        margin: 0;
-        padding: 0;
-      }
-      .swiper {
-        width: 300px;
-        height: 300px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -150px;
-        margin-top: -150px;
-      }
+<html>
+  <head>
+    <title>Text to Speech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="flex justify-center items-center my-10 min-h-screen flex-col gap-3"
+  >
+    <header
+      class="flex justify-between items-center w-full mt-5 border-b-2 pb-7 sm:px-4 px-2"
+    >
+      <a href="index.html" class="flex space-x-3">
+        <img alt="Logo" src="./logo.png" class="sm:w-12 sm:h-12 w-8 h-8" />
+        <h1 class="sm:text-4xl text-2xl font-bold ml-2 tracking-tight">
+          Text To Speech
+        </h1>
+      </a>
+    </header>
+    <textarea
+      class="p-4 border-2 border-solid border-black"
+      id="textarea"
+      rows="20"
+      cols="100"
+    ></textarea
+    ><br /><br />
 
-      .swiper-slide {
-        background-position: center;
-        background-size: cover;
-      }
+    <label for="voices">Select a Voice:</label>
+    <select id="voices"></select>
+    <label for="rate">Select Rate Speed:</label>
+    <input type="range" min="0" max="1" step="0.1" value="1" id="rate" />
+    <button id="speak">Speak</button>
 
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-      }
-    </style>
-</head>
-<body>
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.pixabay.com/photo/2023/01/04/01/37/nft-7695648_960_720.jpg"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/A%20Shiba%20Inu%20dog%20wearing%20a%20beret%20and%20black%20turtleneck.webp?v=1"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/A%20photo%20of%20a%20white%20fur%20monster%20standing%20in%20a%20purple%20room.webp?v=1"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/An%20expressive%20oil%20painting%20of%20a%20basketball%20player%20dunking,%20depicted%20as%20an%20explosion%20of%20a%20nebula.webp?v=1"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/3D%20render%20of%20a%20cute%20tropical%20fish%20in%20an%20aquarium%20on%20a%20dark%20blue%20background,%20digital%20art.webp?v=1"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/A%20cyberpunk%20monster%20in%20a%20control%20room.webp?v=1"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/A%20photo%20of%20a%20teddy%20bear%20on%20a%20skateboard%20in%20Times%20Square.webp?v=1"
-          />
-        </div>
-        <div class="swiper-slide">
-          <img
-            src="https://cdn.openai.com/labs/images/A%20centered%20explosion%20of%20colorful%20powder%20on%20a%20black%20background.webp?v=1"
-          />
-        </div>
-      </div>
-    </div>
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <!-- Initialize Swiper -->
     <script>
-      var swiper = new Swiper(".mySwiper", {
-        effect: "cube",
-        grabCursor: true,
-        cubeEffect: {
-          shadow: true,
-          slideShadows: true,
-          shadowOffset: 20,
-          shadowScale: 0.94,
+      const textarea = document.querySelector("#textarea");
+      const voicesSelect = document.querySelector("#voices");
+      const rateInput = document.querySelector("#rate");
+      const speakButton = document.querySelector("#speak");
+
+      const synth = window.speechSynthesis;
+
+      let voices = [];
+
+      function populateVoices() {
+        voices = synth.getVoices();
+        voicesSelect.innerHTML = voices
+          .map(
+            (voice) =>
+              `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`
+          )
+          .join("");
+      }
+
+      function speak() {
+        if (synth.speaking) {
+          synth.cancel();
         }
+        if (textarea.value !== "") {
+          const speakText = new SpeechSynthesisUtterance(textarea.value);
+          speakText.voice = voices.find(
+            (voice) => voice.name === voicesSelect.value
+          );
+          speakText.rate = rateInput.value;
+          synth.speak(speakText);
+        }
+      }
+
+      synth.addEventListener("voiceschanged", populateVoices);
+
+      voicesSelect.addEventListener("change", () => {
+        speak();
       });
+
+      rateInput.addEventListener("input", () => {
+        speak();
+      });
+
+
+      speakButton.addEventListener("click", () => {
+        speak();
+      });
+
+      populateVoices();
     </script>
-  
-    
-</body>
+  </body>
 </html>
